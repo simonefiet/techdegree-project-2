@@ -2,7 +2,8 @@
 
 This is my second Techdegree project
 
-This is a quiz app with 10 Additions and a success/result page. Questions is defined in PHP array.
+This is a quiz app with 10 Additions and a success/result page. 
+Questions is defined in PHP array.
 
 Author: Simone Fie Truelsen 
 
