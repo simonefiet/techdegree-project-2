@@ -12,9 +12,6 @@ session_start();
 // Include questions
 include 'questions.php';
 
-//Shuffle questions from array
-shuffle($questions);
-
 //Count questions
 $totalQuestions = count($questions);
 
@@ -25,6 +22,7 @@ $question = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_NUMBER_INT);
 if (empty ($question)){
   session_destroy();
   $question = 1;
+  $_SESSION['score'] = 0;
 }
 
 if(isset($_POST['answer'])){
@@ -55,8 +53,6 @@ function feedback() {
     if ($_SESSION['answer'] == $_SESSION['correct'] AND isset($_POST['answer'])){
 	
 		echo "<p class='' style='color: green;'>" . $correctFeedback[0] . " Keep going.</p>";
-		// Keep track of answers
-		$_SESSION['score']++; 
 
   	} elseif ($_SESSION['answer'] != $_SESSION['correct'] AND isset($_POST['answer'])){
 
@@ -64,6 +60,12 @@ function feedback() {
 
 	}
 
+}
+
+// Keep track of answers
+if ($_SESSION['answer'] == $_SESSION['correct'] AND isset($_POST['answer'])){
+	
+	$_SESSION['score']++;
 }
 $score = $_SESSION['score'];
 

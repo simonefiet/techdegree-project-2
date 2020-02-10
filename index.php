@@ -6,8 +6,9 @@
                 <?php echo feedback(); ?>
 
             </div>
-        <?php } ?>
-        <p class="breadcrumbs">Question 
+        <?php } 
+        echo $score; ?>
+        <p class="breadcrumbs">
             <!-- Show which question they are on -->
             <?php echo 'Question ' . $question . ' of ' .  $totalQuestions; ?>
         </p>
