@@ -7,4 +7,4 @@ Questions is defined in PHP array.
 
 Author: Simone Fie Truelsen 
 
-Last update: 7/2-2020
+Last update: 10/2-2020
