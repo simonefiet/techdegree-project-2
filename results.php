@@ -1,6 +1,9 @@
 <?php include 'header.php'; ?>
 <?php
-session_start();
+$score = $_SESSION['score'];
+if (!$score) {
+	$score = 0; //if there's no right answers the score should be 0
+}
 echo"<p>You scored " . $score . " out of 10</p>";
 echo '<p class="quiz">';
 if ($score < 5) {

@@ -7,6 +7,16 @@
 
             </div>
         <?php } ?>
+
+        <?php if (!$_SESSION['quizstart']) { ?>
+            <p class="quiz">
+                Welcome to the quiz
+            </p>
+             <form action="index.php?p=1" method="post">
+                <input type="submit" class="btn" name="quizstart" value="Start quiz">
+             </form>
+        <?php } else { ?>
+
         <p class="breadcrumbs">
             <!-- Show which question they are on -->
             <?php echo 'Question ' . $question . ' of ' .  $totalQuestions; ?>
@@ -26,4 +36,7 @@
             <input type="hidden" name="correct" value="<?php echo $questions[$arrayNo]['correctAnswer']; ?>">
         </form>
 
+        <?php } ?>
+
+        
 <?php include 'footer.php'; //Include footer file ?>

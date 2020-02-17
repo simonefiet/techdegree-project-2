@@ -5,12 +5,24 @@
  * For the questions, I have used PHP array of questions from 'questions.php'
  *
  */
+// Include questions
+include 'questions.php';
+
+
 
 //Start session
 session_start();
+if(isset($_POST['quizstart'])){
+	$_SESSION['quizstart'] = 1;
+}
 
-// Include questions
-include 'questions.php';
+//Shuffle questions once in session
+if (!isset($_SESSION['shuffled'])) {
+    $_SESSION['shuffled'] = range(0, 9);
+    shuffle($_SESSION['shuffled']);
+}
+
+//$rand_questions = array_rand($questions, 10);
 
 //Count questions
 $totalQuestions = count($questions);
@@ -18,15 +30,20 @@ $totalQuestions = count($questions);
 // Keep track of which questions have been asked
 $question = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_NUMBER_INT);
 
+
 //reset quiz
 if (empty ($question)){
   session_destroy();
   $question = 1;
-  $_SESSION['score'] = 0;
 }
+
+
 
 if(isset($_POST['answer'])){
 	$_SESSION['answer'] = filter_input(INPUT_POST, 'answer', FILTER_SANITIZE_NUMBER_INT);
+}
+if(!isset($_POST['answer'])){
+	
 }
 
 if (isset($_POST['correct'])) {
@@ -39,7 +56,8 @@ $choices = array('correctAnswer', 'firstIncorrectAnswer', 'secondIncorrectAnswer
 // Shuffle answer buttons
 shuffle($choices);
 
-$arrayNo = $question-1;
+
+$arrayNo = $_SESSION['shuffled'][$question-1];
 
 // funtion to toast correct and incorrect answers
 function feedback() {
@@ -64,10 +82,9 @@ function feedback() {
 
 // Keep track of answers
 if ($_SESSION['answer'] == $_SESSION['correct'] AND isset($_POST['answer'])){
-	
 	$_SESSION['score']++;
 }
-$score = $_SESSION['score'];
+
 
 // If all questions have been asked, give option to show score
 if($question == 11){
